@@ -17,18 +17,19 @@
         <script>
             document.addEventListener("DOMContentLoaded", () => {
                 <!-- DO SOMETHING HERE -->
-                fetch("/randomtext")
-                    .then(function (response) {
-                        return response.json(); // Promise resolves with parsed JSON
-                    })
-                    .then(function (data) {
+                async function fetchData() {
+                    try {
+                        const response = await fetch("/randomtext");
+                        const data = await response.json();
+                        console.log(data);
                         document.getElementById("myspan").textContent =
                             data.text;
-                        console.log(data); // Promise resolves with data
-                    })
-                    .catch(function (error) {
-                        console.error("Error:", error); // Promise resolves with error
-                    });
+                    } catch (error) {
+                        console.error("Error:", error);
+                    }
+                }
+
+                fetchData();
             });
         </script>
     </body>
